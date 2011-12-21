@@ -20,8 +20,10 @@ clc; clear all; cd mex;
 
 if ispc
     disp('PC');
-    include = ' -Ic:\OpenCV2.2\include\opencv\ -Ic:\OpenCV2.2\include\';
-    libpath = 'c:\OpenCV2.2\lib\';
+    %include = ' -Ic:\OpenCV2.2\include\opencv\ -Ic:\OpenCV2.2\include\';
+    include = ' -IC:\OpenCV2.0\opencv2.0\include\opencv\ -IC:\OpenCV2.0\opencv2.0\include\';
+    %libpath = 'c:\OpenCV2.2\lib\';
+    libpath = 'C:\OpenCV2.0\opencv2.0\lib\';
     files = dir([libpath '*.lib']);
     
     lib = [];
@@ -29,7 +31,7 @@ if ispc
         lib = [lib ' ' libpath files(i).name];
     end
     
-    eval(['mex lk.cpp -O' include lib]);
+    eval(['mex -O lk.cpp' include lib]);
     mex -O -c tld.cpp
     mex -O fern.cpp tld.obj
     mex -O linkagemex.cpp
